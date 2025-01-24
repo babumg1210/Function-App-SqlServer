@@ -10,6 +10,3 @@ variable "location" {
   description = "Azure region for the resource group"
 }
 
-variable "app_service_plan_id" {
-  description = "ID of the App Service Plan"
-}
