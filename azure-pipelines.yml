@@ -37,7 +37,16 @@ stages:
   jobs:
   - job: PlanTerraform
     steps:
-
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'devpos-sc'
+        backendAzureRmResourceGroupName: 'Strorage-RG'
+        backendAzureRmStorageAccountName: 'storageaccount308081'
+        backendAzureRmContainerName: 'marketing'
+        backendAzureRmKey: 'function.tfstate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
     - task: TerraformTaskV4@4
       inputs:
         provider: 'azurerm'
@@ -51,6 +60,16 @@ stages:
   jobs:
   - job: PlanTerraform
     steps:
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'devpos-sc'
+        backendAzureRmResourceGroupName: 'Strorage-RG'
+        backendAzureRmStorageAccountName: 'storageaccount308081'
+        backendAzureRmContainerName: 'marketing'
+        backendAzureRmKey: 'function.tfstate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
     - task: TerraformTaskV4@4
       inputs:
         provider: 'azurerm'
