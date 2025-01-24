@@ -17,7 +17,7 @@ steps:
       backendServiceArm: 'devpos-sc'
       backendAzureRmResourceGroupName: 'Strorage-RG'
       backendAzureRmStorageAccountName: 'storageaccount308081'
-      backendAzureRmContainerName: 'marketing'
+      backendAzureRmContainerName: 'usecase'
       backendAzureRmKey: 'function.tfstate'
       workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
 
