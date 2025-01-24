@@ -1,5 +1,5 @@
 resource_group_name       = "myResourceGroup"
-location                  = "eastus"
+location                  = "Canada Central"
 function_app_name         = "myfunctionapp12"
 sql_server_name           = "mySQLServer"
 sql_database_name         = "myDatabase"
