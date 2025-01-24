@@ -5,3 +5,7 @@ output "function_app_name" {
 output "function_app_identity" {
   value = azurerm_function_app.this.identity[0].principal_id
 }
+output "app_service_plan_id" {
+  value = azurerm_app_service_plan.this.id
+}
+
