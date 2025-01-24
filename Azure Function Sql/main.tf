@@ -1,3 +1,17 @@
+terraform {
+  backend "azurerm" {
+    resource_group_name   = "Strorage-RG"
+    storage_account_name  = "storageaccount308081"
+    container_name        = "marketing"
+    key                   = "function.tfstate"
+    
+    # Use the service principal for authentication
+    client_id             = "b049e7c4-b809-486b-9433-8a6745db6a95"
+    client_secret         = "4eR8Q~IEcr33IpppLTQ_ay2UiPqe_sxg35rUJapg"
+    tenant_id             = "3c33924a-8f7e-460b-96e0-58bc5724686f"
+    subscription_id       = "a62b8882-3f1a-45ff-852f-3d4d1fe3ee13"
+  }
+}
 provider "azurerm" {
   features {}
 }
