@@ -8,7 +8,7 @@ resource "azurerm_app_service_plan" "this" {
   }
 }
 resource "azurerm_storage_account" "this" {
-  name = lower("${var.function_app_name}-storage")  # Make sure it's lowercase
+  name = lower("${var.function_app_name}torage")  # Make sure it's lowercase
   resource_group_name      = var.resource_group_name
   location                 = var.location
   account_tier             = "Standard"
