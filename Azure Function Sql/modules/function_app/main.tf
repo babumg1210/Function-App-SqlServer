@@ -22,9 +22,10 @@ resource "azurerm_function_app" "this" {
   resource_group_name        = var.resource_group_name
   app_service_plan_id        = azurerm_app_service_plan.this.id
   storage_account_name       = azurerm_storage_account.this.name
+  storage_account_access_key = azurerm_storage_account.this.primary_access_key
   os_type                    = "linux"
-  runtime                    = "node"
-  version                    = "~14"
+ # runtime                    = "node"
+  version                    = "~3"
   identity {
     type = "SystemAssigned"
   }
