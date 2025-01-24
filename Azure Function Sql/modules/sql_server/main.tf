@@ -1,5 +1,5 @@
 resource "azurerm_mssql_server" "this" {
-  name                         = var.sql_server_name
+  name = substr(lower(var.sql_server_name), 0, 63)
   resource_group_name          = var.resource_group_name
   location                     = var.location
   version                      = "12.0"
