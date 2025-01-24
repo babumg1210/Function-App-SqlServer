@@ -1,4 +1,4 @@
-resource "azurerm_sql_server" "this" {
+resource "azurerm_mssql_server" "this" {
   name                         = var.sql_server_name
   resource_group_name          = var.resource_group_name
   location                     = var.location
@@ -7,11 +7,11 @@ resource "azurerm_sql_server" "this" {
   administrator_login_password = var.sql_admin_password
 }
 
-resource "azurerm_sql_database" "this" {
+resource "azurerm_mssql_database" "this" {
   name                = var.sql_database_name
   resource_group_name = var.resource_group_name
   location            = var.location
-  server_name         = azurerm_sql_server.this.name
+  server_name         = azurerm_mssql_server.this.name
   sku {
     name     = "S0"
     tier     = "Standard"
