@@ -58,3 +58,60 @@ stages:
         environmentServiceNameAzureRM: 'devpos-sc'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
         commandOptions: '-input=false tfplan'
+
+# trigger:
+# - none
+
+# pool:
+#   vmImage: ubuntu-latest
+
+# stages:
+# - stage: tfvalidate
+#   jobs:
+#   - job: validate
+#     continueOnError: false
+#     steps:
+#     - task: TerraformTaskV4@4
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'init'
+#         backendServiceArm: 'devpos-sc'
+#         backendAzureRmResourceGroupName: 'Strorage-RG'
+#         backendAzureRmStorageAccountName: 'storageaccount308081'
+#         backendAzureRmContainerName: 'marketing'
+#         backendAzureRmKey: 'function.tfstate'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+#     - task: TerraformTaskV4@4
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'validate'
+#         backendServiceArm: 'devpos-sc'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+
+# - stage: tfplan
+#   dependsOn: tfvalidate
+#   condition: succeeded('validate')
+#   jobs:
+#   - job: PlanTerraform
+#     steps:
+#     - task: TerraformTaskV4@4
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'plan'
+#         environmentServiceNameAzureRM: 'devpos-sc'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+#         commandOptions: '-var-file=terraform.tfvars -out=tfplan'
+
+# - stage: tfapply
+#   dependsOn: tfplan
+#   condition: succeeded('PlanTerraform')
+#   jobs:
+#   - job: PlanTerraform
+#     steps:
+#     - task: TerraformTaskV4@4
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'apply'
+#         environmentServiceNameAzureRM: 'devpos-sc'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+#         commandOptions: '-input=false tfplan'
