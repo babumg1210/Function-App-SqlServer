@@ -35,8 +35,8 @@ module "sql_server" {
   sql_database_name   = var.sql_database_name
   resource_group_name = module.resource_group.resource_group_name
   location           = var.location
-  sql_admin_username  = var.sql_admin_username
-  sql_admin_password  = var.sql_admin_password
+  administrator_login  = var.sql_admin_username
+  administrator_login_password  = var.sql_admin_password
 }
 
 resource "azurerm_role_assignment" "function_app_sql_access" {
