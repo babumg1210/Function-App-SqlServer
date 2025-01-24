@@ -8,8 +8,8 @@ resource "azurerm_mssql_server" "this" {
 }
 
 resource "azurerm_mssql_database" "this" {
-  name                         = var.database_name
-  resource_group_name          = var.resource_group_name
-  server_id                    = azurerm_mssql_server.this.id
+  name                = var.database_name
+  resource_group_name = var.resource_group_name
+  server_id           = azurerm_mssql_server.this.id
   requested_service_objective_name = "S1"
 }
