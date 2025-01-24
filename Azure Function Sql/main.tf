@@ -27,6 +27,8 @@ module "function_app" {
   function_app_name   = var.function_app_name
   resource_group_name = module.resource_group.name
   location            = var.location
+  app_service_plan_id        = azurerm_app_service_plan.this.id
+  storage_account_name       = azurerm_storage_account.this.name
 }
 
 module "sql_server" {
