@@ -32,9 +32,11 @@ steps:
     command: 'plan'
     environmentServiceNameAzureRM: 'devpos-sc'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
+    commandOptions: '-var-file=terraform.tfvars -out=tfplan'
 - task: TerraformTaskV4@4
   inputs:
     provider: 'azurerm'
     command: 'apply'
     environmentServiceNameAzureRM: 'devpos-sc'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
+    commandOptions: '-input=false tfplan'
