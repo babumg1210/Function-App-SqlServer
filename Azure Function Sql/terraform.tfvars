@@ -1,6 +1,6 @@
 resource_group_name       = "myResourceGroup"
 location                  = "eastus"
-function_app_name         = "myFunctionApp"
+function_app_name         = "myfunctionapp1210"
 sql_server_name           = "mySQLServer"
 sql_database_name         = "myDatabase"
 sql_admin_username        = "sqladmin"
