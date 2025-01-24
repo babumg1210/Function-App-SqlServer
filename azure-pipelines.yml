@@ -17,8 +17,8 @@ steps:
     backendServiceArm: 'devpos-sc'
     backendAzureRmResourceGroupName: 'Strorage-RG'
     backendAzureRmStorageAccountName: 'storageaccount308081'
-    backendAzureRmContainerName: 'terraform'
-    backendAzureRmKey: 'terraform.tfstate'
+    backendAzureRmContainerName: 'marketing'
+    backendAzureRmKey: 'function.tfstate'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
 - task: TerraformTaskV4@4
   inputs:
@@ -38,17 +38,3 @@ steps:
     command: 'apply'
     environmentServiceNameAzureRM: 'devpos-sc'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
-- task: SonarQubePrepare@4
-  inputs:
-    SonarQube: 'SonarQube'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'myProject'
-    cliProjectName: 'MyProject'
-    cliSources: '$(Build.SourcesDirectory)'
-
-- task: SonarQubeAnalyze@4
-
-- task: SonarQubePublish@4
-  inputs:
-    pollingTimeoutSec: '300'
