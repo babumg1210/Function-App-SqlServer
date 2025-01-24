@@ -34,7 +34,7 @@ module "function_app" {
 module "sql_server" {
   source                  = "./modules/sql_server"
   sql_server_name         = var.sql_server_name
-  resource_group_name     = var.esource_group_name
+  resource_group_name     = var.resource_group_name
   location                = var.location
   administrator_login     = var.sql_admin_username
   administrator_password  = var.sql_admin_password
