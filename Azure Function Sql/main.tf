@@ -2,7 +2,7 @@ terraform {
   backend "azurerm" {
     resource_group_name   = "Strorage-RG"
     storage_account_name  = "storageaccount308081"
-    container_name        = "marketing"
+    container_name        = "usecase"
     key                   = "function.tfstate"
 
     client_id             = "b049e7c4-b809-486b-9433-8a6745db6a95"
