@@ -27,7 +27,7 @@ module "function_app" {
   function_app_name   = var.function_app_name
   resource_group_name = var.resource_group_name
   location            = var.location
-  app_service_plan_id        = azurerm_app_service_plan.this.id
+  app_service_plan_id        = var.app_service_plan_id
  # storage_account_name       = azurerm_storage_account.this.name
 }
 
