@@ -1,14 +1,15 @@
 variable "function_app_name" {
-  description = "The name of the Function App."
-  type        = string
+  description = "Name of the Azure Function App"
 }
 
 variable "resource_group_name" {
-  description = "The name of the resource group."
-  type        = string
+  description = "Name of the resource group"
 }
 
 variable "location" {
-  description = "The Azure region to create resources in."
-  type        = string
+  description = "Azure region for the resource group"
+}
+
+variable "app_service_plan_id" {
+  description = "ID of the App Service Plan"
 }
