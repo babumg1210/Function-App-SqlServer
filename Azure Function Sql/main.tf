@@ -25,7 +25,7 @@ module "resource_group" {
 module "function_app" {
   source              = "./modules/function_app"
   function_app_name   = var.function_app_name
-  resource_group_name = module.resource_group.name
+  resource_group_name = module.resource_group.resource_group_nam
   location            = var.location
   app_service_plan_id        = azurerm_app_service_plan.this.id
  # storage_account_name       = azurerm_storage_account.this.name
@@ -34,7 +34,7 @@ module "function_app" {
 module "sql_server" {
   source                  = "./modules/sql_server"
   sql_server_name         = var.sql_server_name
-  resource_group_name     = module.resource_group.name
+  resource_group_name     = module.resource_group.resource_group_nam
   location                = var.location
   administrator_login     = var.sql_admin_username
   administrator_password  = var.sql_admin_password
