@@ -78,6 +78,11 @@ stages:
               environmentServiceNameAzureRM: '$(backendServiceArm)'
               commandOptions: '-var-file=terraform.tfvars -out=tfplan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+       # Publish tfplan as a pipeline artifact
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(System.DefaultWorkingDirectory)/Azure Function Sql/tfplan'
+              artifactName: 'tfplan'
 
   - stage: Apply
     dependsOn: Plan
@@ -95,6 +100,12 @@ stages:
               backendAzureRmContainerName: '$(bkcontainer)'
               backendAzureRmKey: '$(bkstrgkey)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+             # Download the tfplan artifact
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'tfplan'
+              targetPath: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+          
           - task: TerraformTaskV4@4
             displayName: Terraform Apply
             inputs:
