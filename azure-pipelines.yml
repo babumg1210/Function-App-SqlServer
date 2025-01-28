@@ -34,6 +34,18 @@ stages:
       - job: TerraformValidate
         steps:
           - task: TerraformTaskV4@4
+            displayName: Terraform Init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: '$(backendServiceArm)'
+              backendAzureRmResourceGroupName: '$(bkstrgrg)'
+              backendAzureRmStorageAccountName: '$(bkstrg)'
+              backendAzureRmContainerName: '$(bkcontainer)'
+              backendAzureRmKey: '$(bkstrgkey)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+          
+          - task: TerraformTaskV4@4
             displayName: Terraform Validate
             inputs:
               provider: 'azurerm'
@@ -46,6 +58,18 @@ stages:
     jobs:
       - job: TerraformPlan
         steps:
+          - task: TerraformTaskV4@4
+            displayName: Terraform Init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: '$(backendServiceArm)'
+              backendAzureRmResourceGroupName: '$(bkstrgrg)'
+              backendAzureRmStorageAccountName: '$(bkstrg)'
+              backendAzureRmContainerName: '$(bkcontainer)'
+              backendAzureRmKey: '$(bkstrgkey)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+            
           - task: TerraformTaskV4@4
             displayName: Terraform Plan
             inputs:
@@ -60,6 +84,17 @@ stages:
     jobs:
       - job: TerraformApply
         steps:
+          - task: TerraformTaskV4@4
+            displayName: Terraform Init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: '$(backendServiceArm)'
+              backendAzureRmResourceGroupName: '$(bkstrgrg)'
+              backendAzureRmStorageAccountName: '$(bkstrg)'
+              backendAzureRmContainerName: '$(bkcontainer)'
+              backendAzureRmKey: '$(bkstrgkey)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
           - task: TerraformTaskV4@4
             displayName: Terraform Apply
             inputs:
