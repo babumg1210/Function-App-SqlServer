@@ -1,45 +1,70 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
   - main
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-  - task: TerraformTaskV4@4
-    inputs:
-      provider: 'azurerm'
-      command: 'init'
-      backendServiceArm: 'devpos-sc'
-      backendAzureRmResourceGroupName: 'Strorage-RG'
-      backendAzureRmStorageAccountName: 'storageaccount308081'
-      backendAzureRmContainerName: 'usecase'
-      backendAzureRmKey: 'function.tfstate'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+variables:
+  bkstrgrg: 'Strorage-RG'
+  bkstrg: 'storageaccount308081'
+  bkcontainer: 'usecase'
+  bkstrgkey: 'function.tfstate'
+  backendServiceArm: 'devpos-sc'
 
-  - task: TerraformTaskV4@4
-    inputs:
-      provider: 'azurerm'
-      command: 'validate'
-      backendServiceArm: 'devpos-sc'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+stages:
+  - stage: Init
+    jobs:
+      - job: TerraformInit
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: Terraform Init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: '$(backendServiceArm)'
+              backendAzureRmResourceGroupName: '$(bkstrgrg)'
+              backendAzureRmStorageAccountName: '$(bkstrg)'
+              backendAzureRmContainerName: '$(bkcontainer)'
+              backendAzureRmKey: '$(bkstrgkey)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
 
-  - task: TerraformTaskV4@4
-    inputs:
-      provider: 'azurerm'
-      command: 'plan'
-      environmentServiceNameAzureRM: 'devpos-sc'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
-      commandOptions: '-var-file=terraform.tfvars -out=tfplan'
+  - stage: Validate
+    dependsOn: Init
+    jobs:
+      - job: TerraformValidate
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: Terraform Validate
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+              backendServiceArm: '$(backendServiceArm)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
 
-  - task: TerraformTaskV4@4
-    inputs:
-      provider: 'azurerm'
-      command: 'apply'
-      environmentServiceNameAzureRM: 'devpos-sc'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
-      commandOptions: '-input=false tfplan'
+  - stage: Plan
+    dependsOn: Validate
+    jobs:
+      - job: TerraformPlan
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: Terraform Plan
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: '$(backendServiceArm)'
+              commandOptions: '-var-file=terraform.tfvars -out=tfplan'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
+
+  - stage: Apply
+    dependsOn: Plan
+    jobs:
+      - job: TerraformApply
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: Terraform Apply
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: '$(backendServiceArm)'
+              commandOptions: '-input=false tfplan'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Azure Function Sql'
